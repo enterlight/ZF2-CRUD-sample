@@ -7,7 +7,7 @@ return array(
 	 */
 	'controllers' => array(
 		'invokables' => array(
-				'AddressBook\Controller\User' => 'AddressBook\Controller\AddressBook\Controller',
+				'AddressBook\Controller\AddressBook' => 'AddressBook\Controller\AddressBookController',
 		),
 	),
 		
@@ -16,7 +16,7 @@ return array(
 			'address_book' => array(
 				'type'    => 'literal',
 				'options' => array(
-					'route'    => '/address-book',
+					'route'    => '/ab',
 					'defaults' => array(
 						'__NAMESPACE__' => 'AddressBook\Controller',
 						'controller'    => 'AddressBook',
