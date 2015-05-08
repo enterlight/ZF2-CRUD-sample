@@ -43,9 +43,6 @@ return array(
 		),
 	),
 		
-	/**
-	 * The keys of the template_path_stack array don't mean shit
-	 */
 	'view_manager' => array(
 		'template_path_stack' 	=> array(
 				'mykey' 				=> __DIR__ . '/../view',
