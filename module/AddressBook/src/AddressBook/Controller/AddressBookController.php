@@ -2,45 +2,91 @@
 namespace AddressBook\Controller;
 
 /**
- * Dont put the database access code in the controller!!!
- * ORM Object relational mapping: A way of merging incompatible data. 4 different ways:
  * 
- * 1) Table data gateway:  Comes with zf2 right out of the box.  You can use PDO or you can use Zend\DB\TableGateway
- * ZTg has the CRUD function alreasy made!!
- * 2) Data mapper
- * 3) Row data gateway
- * 4) Active Record
- * 
+ * Table data gateway:  Comes with zf2 right out of the box.  Zend\DB\TableGateway has the CRUD function alreasy made!!
  */
-/**
- * AbstractActionController:
- */
+
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 use Zend\Db\TableGateway\TableGateway;
 
-use CsnUser\Form\UserForm;
-use CsnUser\Form\UserFilter;
+use AddressBook\Form\AddressBookForm;
+use AddressBook\Form\AddressBookFilter;
 
 class AddressBookController extends AbstractActionController
 {
+	private $addressBookTable;
+	
 	public function indexAction() 
 	{
-		return new ViewModel();
+		return new ViewModel(array('rowset' => $this->getAddressBookTable()->select()));
 	}
-
 	public function createAction()
 	{
-		return new ViewModel();
+		$form = new AddressBookForm();
+		$request = $this->getRequest();
+        if ($request->isPost()) {
+			$form->setInputFilter(new AddressBookFilter());
+			$form->setData($request->getPost());
+			 if ( $form->isValid() ) {
+			 	// Get the data from the form that has been validated
+				$data = $form->getData();
+				unset($data['submit']);
+				$this->getAddressBookTable()->insert($data);
+				return $this->redirect()->toRoute('address_book/default', array('controller' => 'addressbook', 'action' => 'index'));										
+			}
+		}		
+		
+		return new ViewModel(array('form' => $form));
 	}
 	
 	public function updateAction()
 	{
-		return new ViewModel();
+		$id = $this->params()->fromRoute('id');
+		if ( !$id ) {
+			return $this->redirect()->toRoute('address_book/default', array('controller' => 'addressbook', 'action' => 'index'));
+		}		
+		$form = new AddressBookForm();
+		$request = $this->getRequest();
+		if ( $request->isPost() ) {
+			$form->setInputFilter(new AddressBookFilter());
+			$form->setData($request->getPost());
+			if ( $form->isValid() ) {
+				// Get the data from the form that has been validated				
+				$data = $form->getData();
+				unset($data['submit']);
+				$this->getAddressBookTable()->update($data, array('usr_id' => $id));
+				return $this->redirect()->toRoute('address_book/default', array('controller' => 'addressbook', 'action' => 'index'));
+			}
+		}
+		else {
+			$form->setData($this->getAddressBookTable()->select(array('usr_id' => $id))->current());
+		}
+		return new ViewModel(array('form' => $form, 'id' => $id));
 	}
 	
 	public function deleteAction()
 	{
-
+		// We don't event nee a view model becaue we'lldelete and go back to our index page
+		$id = $this->params()->fromRoute('id');
+		if ($id) {
+			$this->getAddressBookTable()->delete(array('usr_id' => $id));
+		}
+		
+		return $this->redirect()->toRoute('address_book/default', array('controller' => 'addressbook', 'action' => 'index'));		
+	}
+	
+	/* Create the tableGateway object to hold the data
+	 * 
+	 */
+	public function getAddressBookTable()
+	{
+		if ( !$this->addressBookTable ) {
+			$this->addressBookTable = new TableGateway(
+				'address_book',   // name of the table
+				$this->getServiceLocator()->get('Zend\Db\Adapter\Adapter')
+			);
+		}
+		return $this->addressBookTable;
 	}
 }
