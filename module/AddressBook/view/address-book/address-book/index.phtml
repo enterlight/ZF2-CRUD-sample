@@ -1,0 +1,40 @@
+<h1>Index = Retrieve</h1>
+
+<?php 
+/*
+	We are using the view helper 'url->' with csn_user/default as the name of the route 
+	(remember: in module.config.php).
+	
+	  "rowset" was defined and injected into ViewModel, which in turn will call this template and provide the rowset
+*/
+?>
+
+<a href="<?php echo $this->url('csn_user/default', array('controller' => 'user', 'action' => 'create')); ?>">Create</a>
+<table class="table">
+<tr>
+	<th>usr_id</th>
+	<th>usr_name</th>
+	<th>usr_email</th>
+</tr>
+<?php
+	foreach ($rowset as $row) {
+?>
+		<tr>
+			<td><?php  echo $row->usr_id; // The row is an ArrayObject $row->usr_id and $row['usr_id'] with both work?></td>
+			<td><?php  echo $row['usr_name']; ?></td>
+			<td><?php  echo $row['usr_email']; ?></td>
+			<!--  View helper Url()
+			$name: The name of the route you want to output: e.g. Here we have a TresStackRoute so we separate parent and child with /
+			the name of the route is 'csn_user/default' where the root route is csn_user and the child route is default.
+			$params: An array of parameters that is defined within the respective route configuration.  In this case our route has 3 params:
+			controller, action and id.
+			$options: An array of options that will be used to create the URL.
+			$reuseMatchedParams: A flag indicating if the currently matched route parameters should be used when generating the new URL
+			 -->
+			<td><a href="<?php echo $this->url('csn_user/default', array('controller' => 'user', 'action' => 'update', 'id' => $row['usr_id'])); ?>">Edit</a></td>
+			<td><a href="<?php echo $this->url('csn_user/default', array('controller' => 'user', 'action' => 'delete', 'id' => $row['usr_id']));?>" onclick="return confirm('Do you really want to delete the record?')">Delete</a></td>
+		</tr>
+<?php
+	}
+?>
+</table>
