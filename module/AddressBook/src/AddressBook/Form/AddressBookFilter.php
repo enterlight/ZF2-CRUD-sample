@@ -4,7 +4,7 @@ namespace AddressBook\Form;
 use Zend\InputFilter\Factory as InputFactory;
 use Zend\InputFilter\InputFilter;
 
-class UserFilter extends InputFilter
+class AddressBookFilter extends InputFilter
 {
 	public function __construct()
 	{

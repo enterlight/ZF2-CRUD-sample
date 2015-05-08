@@ -3,11 +3,11 @@ namespace AddressBook\Form;
 
 use Zend\Form\Form;
 
-class UserForm extends Form
+class AddressBookForm extends Form
 {
     public function __construct($name = null)
     {
-        parent::__construct('user');
+        parent::__construct('addressbook');
         $this->setAttribute('method', 'post');
 
         $this->add(array(
