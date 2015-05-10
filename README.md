@@ -55,12 +55,12 @@ project and you should be ready to go! It should look something like below:
     
     To access the Address Book sample, type http://zf2-tutorial.localhost/ab in your browser
     
-### IIS 7 Setup (Make sure you have the ReWrite Module)
+### IIS 7 Setup (Make sure you have the ReWrite Module installed)
 
 A `web.config` file is included for IIS 7. This will make sure all requests are redirected to the index.php file.
 
-To access the Address Book sample, type http://localhost/intermedix-sample/public/ab in your browser 
-create a Virtual Server to point to /intermedix-sample/public and use http://private_server/ab.  
+To access the Addressbook sample, type http://localhost/intermedix-sample/public/ab in your browser or 
+create a Virtual Server to point to /intermedix-sample/public and use the following url to access the application: http://private_server/ab.   
 Instructions from Microsoft to create a virtual server are found here: https://support.microsoft.com/en-us/kb/816576
 
 
