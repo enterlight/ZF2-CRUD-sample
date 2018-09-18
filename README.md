@@ -4,7 +4,7 @@ Addressbook sample app
 Introduction
 ------------
 This is a simple, application using the ZF2 MVC layer and module
-systems. This application was created using the ZF2 skeleton application.
+systems. This application was created using the ZF2 skeleton application and provides the step to install in on a Windows server.
 
 Installation
 ------------
@@ -13,8 +13,8 @@ To get a working copy of this project, clone the repository and manually invoke 
 `composer.phar`:
 
     cd my/webroot
-    git clone git://github.com/enterlight/intermedix-sample.git
-    cd intermedix-sample
+    git clone git://github.com/enterlight/student-sample.git
+    cd student-sample
     php composer.phar self-update
     php composer.phar install
 
@@ -59,8 +59,8 @@ project and you should be ready to go! It should look something like below:
 
 A `web.config` file is included for IIS 7. This will make sure all requests are redirected to the index.php file.
 
-To access the Addressbook sample, type http://localhost/intermedix-sample/public/ab in your browser or 
-create a Virtual Server to point to /intermedix-sample/public and use the following url to access the application: http://private_server/ab.   
+To access the Addressbook sample, type http://localhost/student-sample/public/ab in your browser or 
+create a Virtual Server to point to /student-sample/public and use the following url to access the application: http://private_server/ab.   
 Instructions from Microsoft to create a virtual server are found here: https://support.microsoft.com/en-us/kb/816576
 
 
